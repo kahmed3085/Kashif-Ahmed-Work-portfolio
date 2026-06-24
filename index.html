@@ -474,9 +474,14 @@ class Component extends DCLogic {
       const root = document;
       ST.getAll().forEach(t => t.kill());
 
-      // HERO scroll parallax.
+      // HERO section - ensure visibility and parallax
       const home = root.querySelector('#home');
       if (home) {
+        // Make hero visible immediately on page load
+        g.set(root.querySelectorAll('.hero-line'), { yPercent:0, opacity:1 });
+        g.set(root.querySelector('.hero-photo'), { yPercent:0, scale:1, opacity:1 });
+        
+        // Then add parallax on scroll
         const st = { trigger:home, start:'top top', end:'bottom top', scrub:0.6, scroller };
         g.to(root.querySelectorAll('.hero-line'), { yPercent:-60, opacity:.25, ease:'none', scrollTrigger:st });
         g.to(root.querySelector('.hero-photo'), { yPercent:22, scale:.94, opacity:.4, ease:'none', scrollTrigger:st });
